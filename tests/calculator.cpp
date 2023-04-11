@@ -24,11 +24,10 @@ TEST(Caculator, Lexer)
         CalculatorToken(CalculatorToken::Type::DIGITS, "2")};
     auto t = lexer.nextToken();
     for (size_t i = 0;
-         i < expect.size() && t->get_type() != CalculatorToken::Type::_EOF;
+         i < expect.size() && t.get_type() != CalculatorToken::Type::_EOF;
          ++i, t = lexer.nextToken())
     {
-        ASSERT_EQ(expect[i].get_type(), t->get_type());
-        ASSERT_EQ(expect[i].get_value(), t->get_value());
+        ASSERT_EQ(t, expect[i]);
     }
-    ASSERT_EQ(t->get_type(), CalculatorToken::Type::_EOF);
+    ASSERT_EQ(t.get_type(), CalculatorToken::Type::_EOF);
 }
