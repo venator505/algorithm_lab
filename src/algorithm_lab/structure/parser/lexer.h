@@ -10,7 +10,7 @@ class Lexer
 public:
     Lexer(const std::string& input) : input(input), c(input[0]), p(0) {}
 
-    virtual Token* nextToken() = 0;
+    virtual Token nextToken() = 0;
 
     // virtual void match(char c) = 0;
 

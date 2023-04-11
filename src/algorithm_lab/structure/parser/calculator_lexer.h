@@ -14,7 +14,7 @@ class CalculatorLexer : public Lexer
 public:
     CalculatorLexer(const std::string& input) : Lexer(input) {}
 
-    Token* nextToken() override
+    Token nextToken() override
     {
         while (c != EOF)
         {
@@ -22,12 +22,12 @@ public:
             {
                 case '(':
                     consume();
-                    return new CalculatorToken(CalculatorToken::Type::LBRACKET,
-                                               "(");
+                    return CalculatorToken(CalculatorToken::Type::LBRACKET,
+                                           "(");
                 case ')':
                     consume();
-                    return new CalculatorToken(CalculatorToken::Type::RBRACKET,
-                                               ")");
+                    return CalculatorToken(CalculatorToken::Type::RBRACKET,
+                                           ")");
                 case '+':
                 case '-': return op(CalculatorToken::Type::EXPROP);
                 case '*':
@@ -38,10 +38,10 @@ public:
                     throw std::runtime_error("vaild charactor");
             }
         }
-        return new CalculatorToken(CalculatorToken::Type::_EOF, "EOF");
+        return CalculatorToken(CalculatorToken::Type::_EOF, "EOF");
     }
 
-    Token* digits()
+    Token digits()
     {
         int num = 0;
         while (isdigit(c))
@@ -51,15 +51,15 @@ public:
             consume();
         }
         std::string value = std::to_string(num);
-        return new CalculatorToken(CalculatorToken::Type::DIGITS, value);
+        return CalculatorToken(CalculatorToken::Type::DIGITS, value);
     }
 
-    Token* op(CalculatorToken::Type type)
+    Token op(CalculatorToken::Type type)
     {
         std::string value;
         value += c;
         consume();
-        return new CalculatorToken(type, value);
+        return CalculatorToken(type, value);
     }
 
 private:
