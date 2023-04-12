@@ -30,27 +30,29 @@ public:
                                            ")");
                 case '+':
                 case '-': return op(CalculatorToken::Type::EXPROP);
+                case '^':
                 case '*':
                 case '/': return op(CalculatorToken::Type::FACTOROP);
                 case ' ': consume(); continue;
                 default:
                     if (isdigit(c)) return digits();
-                    throw std::runtime_error("vaild charactor");
+                    throw std::runtime_error("invaild charactor");
             }
         }
         return CalculatorToken(CalculatorToken::Type::_EOF, "EOF");
     }
 
+private:
     Token digits()
     {
-        int num = 0;
-        while (isdigit(c))
+        std::string value;
+        _digits(value);
+        if (c == '.')
         {
-            num *= 10;
-            num += c - '0';
+            value += c;
             consume();
+            _digits(value);
         }
-        std::string value = std::to_string(num);
         return CalculatorToken(CalculatorToken::Type::DIGITS, value);
     }
 
@@ -62,7 +64,15 @@ public:
         return CalculatorToken(type, value);
     }
 
-private:
+    void _digits(std::string& value)
+    {
+        while (isdigit(c))
+        {
+            value += c;
+            consume();
+        }
+    }
+
     bool isdigit(char c) { return c >= '0' && c <= '9'; }
 };
 } // namespace parser

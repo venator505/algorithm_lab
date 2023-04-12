@@ -9,11 +9,14 @@ namespace parser {
 class Token
 {
 public:
-    Token(int type, const std::string value) : m_data(new data(type, value)) {}
+    Token(int type = -1, const std::string value = "EOF")
+        : m_data(new data(type, value))
+    {
+    }
 
     int get_type() const { return m_data->type; }
 
-    std::string get_value() const { return m_data->value; }
+    const std::string& get_value() const { return m_data->value; }
 
     bool operator==(const Token& rhs) const { return *m_data == *rhs.m_data; }
 

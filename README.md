@@ -6,6 +6,9 @@ algorithm_lab is a collection of simple implementations of various data structur
 
 The following data structures are implemented in this repository:
 
+## parser
+* [Calculator](./src/algorithm_lab/structure/parser/calculator_parser.h)
+
 # Algorithms
 
 The following algorithms are implemented in this repository:
