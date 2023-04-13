@@ -63,17 +63,6 @@ private:
         consume();
         return CalculatorToken(type, value);
     }
-
-    void _digits(std::string& value)
-    {
-        while (isdigit(c))
-        {
-            value += c;
-            consume();
-        }
-    }
-
-    bool isdigit(char c) { return c >= '0' && c <= '9'; }
 };
 } // namespace parser
 } // namespace structure

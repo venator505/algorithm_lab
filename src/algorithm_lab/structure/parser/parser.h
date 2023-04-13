@@ -33,9 +33,12 @@ public:
         }
     }
 
-    int LT(const size_t kth) { return tokens[kth].get_type(); }
+    int LT(const size_t kth) { return tokens[(p + kth) % k].get_type(); }
 
-    const std::string& LV(const size_t kth) { return tokens[kth].get_value(); }
+    const std::string& LV(const size_t kth)
+    {
+        return tokens[(p + kth) % k].get_value();
+    }
 
 protected:
     Lexer* input = nullptr;
