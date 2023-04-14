@@ -2,6 +2,7 @@
 
 #include "parser.h"
 #include "html_lexer.h"
+#include <iostream>
 #include <stdexcept>
 #include <unordered_map>
 #include <vector>
@@ -33,52 +34,47 @@ public:
 
     HTMLTag tag()
     {
-        std::string name, content;
-        std::vector<HTMLTag> inner;
+        HTMLTag tagInstance;
         match(HTMLToken::TAG_L);
-        name = LV(0);
+        tagInstance.name = LV(0);
         match(HTMLToken::NAME);
-        auto attras = std::move(attra_list());
+        tagInstance.attras = attra_list();
         match(HTMLToken::TAG_R);
         if (LT(0) == HTMLToken::NAME)
         {
-            content = LV(0);
+            tagInstance.content = LV(0);
             consume();
         }
         while (LT(0) == HTMLToken::TAG_L && LT(1) != HTMLToken::TAG_SLASH)
         {
-            inner.push_back(tag());
+            tagInstance.inner.push_back(tag());
         }
 
         match(HTMLToken::TAG_L);
         match(HTMLToken::TAG_SLASH);
         match(HTMLToken::NAME);
         match(HTMLToken::TAG_R);
-        return HTMLTag{name, content, inner, attras};
+        return tagInstance;
     }
 
     AttrabuitesMap attra_list()
     {
-        AttrabuitesMap amap = AttrabuitesMap();
+        AttrabuitesMap amap;
         while (LT(0) == HTMLToken::NAME)
         {
             std::string a_name = LV(0);
             std::string a_value;
             consume();
             match(HTMLToken::ASSIGN);
-            if (LT(0) == HTMLToken::SQUOTE)
+            if (LT(0) == HTMLToken::SQVALUE)
             {
-                consume();
                 a_value = LV(0);
-                match(HTMLToken::NAME);
-                match(HTMLToken::SQUOTE);
+                match(HTMLToken::SQVALUE);
             }
-            else if (LT(0) == HTMLToken::DQUOTE)
+            else if (LT(0) == HTMLToken::DQVALUE)
             {
-                consume();
                 a_value = LV(0);
-                match(HTMLToken::NAME);
-                match(HTMLToken::DQUOTE);
+                match(HTMLToken::DQVALUE);
             }
             else
             {

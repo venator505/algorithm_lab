@@ -29,7 +29,9 @@ public:
         }
         else
         {
-            throw std::runtime_error(std::string("invaildType"));
+            char msg[128];
+            sprintf(msg, "expected %d,but got %d", type, LT(0));
+            throw std::runtime_error(msg);
         }
     }
 

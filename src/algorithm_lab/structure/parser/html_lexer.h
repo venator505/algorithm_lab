@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdio>
+#include <stdexcept>
 #include "lexer.h"
 #include "token.h"
 
@@ -37,8 +38,8 @@ public:
                 case '>': consume(); return Token(HTMLToken::TAG_R, ">");
                 case '/': consume(); return Token(HTMLToken::TAG_SLASH, "/");
                 case '=': consume(); return Token(HTMLToken::ASSIGN, "=");
-                case '\'': consume(); return Token(HTMLToken::SQUOTE, "\'");
-                case '\"': consume(); return Token(HTMLToken::DQUOTE, "\"");
+                case '\'': return Token(HTMLToken::SQVALUE, quote_value('\''));
+                case '\"': return Token(HTMLToken::DQVALUE, quote_value('\"'));
                 case ' ':
                 case '\t':
                 case '\n': ws(); continue;
@@ -60,6 +61,23 @@ private:
             value += c;
             consume();
         }
+        return value;
+    }
+
+    std::string quote_value(char stop)
+    {
+        std::string value;
+        consume();
+        while (c != stop)
+        {
+            if (c == EOF)
+            {
+                throw std::runtime_error("unclosed quate");
+            }
+            value += c;
+            consume();
+        }
+        consume();
         return value;
     }
 };

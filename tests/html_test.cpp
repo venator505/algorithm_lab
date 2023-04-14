@@ -11,12 +11,11 @@ TEST(HTML, lexer)
     std::string html = "<a class=\"test\"></a>";
     HtmlLexer lexer(html);
     std::vector<Token> vec{
-        {HTMLToken::TAG_L, "<"},    {HTMLToken::NAME, "a"},
-        {HTMLToken::NAME, "class"}, {HTMLToken::ASSIGN, "="},
-        {HTMLToken::DQUOTE, "\""},  {HTMLToken::NAME, "test"},
-        {HTMLToken::DQUOTE, "\""},  {HTMLToken::TAG_R, ">"},
-        {HTMLToken::TAG_L, "<"},    {HTMLToken::TAG_SLASH, "/"},
-        {HTMLToken::NAME, "a"},     {HTMLToken::TAG_R, ">"}};
+        {HTMLToken::TAG_L, "<"},      {HTMLToken::NAME, "a"},
+        {HTMLToken::NAME, "class"},   {HTMLToken::ASSIGN, "="},
+        {HTMLToken::DQVALUE, "test"}, {HTMLToken::TAG_R, ">"},
+        {HTMLToken::TAG_L, "<"},      {HTMLToken::TAG_SLASH, "/"},
+        {HTMLToken::NAME, "a"},       {HTMLToken::TAG_R, ">"}};
     auto t = lexer.nextToken();
     for (size_t i = 0; i < vec.size() && t.get_type() != EOF;
          ++i, t = lexer.nextToken())
@@ -33,7 +32,7 @@ TEST(HTML, Parser)
                        "</head>"
                        "<body>"
                        "<h1>welcometomypage</h1>"
-                       "<p>thisisatestp</p>"
+                       "<p class=\" 阿迪斯 \">thisisatestp</p>"
                        "<ul>"
                        "<li>test1</li>"
                        "<li>test2</li>"
