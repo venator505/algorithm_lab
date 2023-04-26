@@ -6,7 +6,6 @@ namespace ybt {
 template <typename T>
 void insertion_sort_impl(std::vector<T>& vec, int p, int q)
 {
-    if (p < q || p >= vec.size()) return;
     for (std::size_t i = p + 1; i <= q; ++i)
     {
         T key = vec[i];

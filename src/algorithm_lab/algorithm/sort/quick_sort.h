@@ -39,20 +39,20 @@ static void quick_sort_impl(std::vector<T>& vec, int p, int q)
 {
     if (p < q)
     {
-        p = random_partition(vec, p, q);
-        quick_sort_impl(vec, 0, p - 1);
-        quick_sort_impl(vec, p + 1, q);
+        int r = partition(vec, p, q);
+        quick_sort_impl(vec, p, r - 1);
+        quick_sort_impl(vec, r + 1, q);
     }
 }
 
 template <typename T>
 static void quick_sort_stl_impl(std::vector<T>& vec, int p, int q)
 {
-    if (q - p > 16)
+    if (q - p >= 15)
     {
-        p = random_partition(vec, p, q);
-        quick_sort_impl(vec, 0, p - 1);
-        quick_sort_impl(vec, p + 1, q);
+        int r = random_partition(vec, p, q);
+        quick_sort_impl(vec, 0, r - 1);
+        quick_sort_impl(vec, r + 1, q);
     }
     else
     {
