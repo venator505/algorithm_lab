@@ -16,3 +16,5 @@ The following algorithms are implemented in this repository:
 ## Sorting Algorithms
 
 * [Insertion Sort](./src/algorithm_lab/algorithm/sort/insertion_sort.h)
+* [Insertion Sort](./src/algorithm_lab/algorithm/sort/quick_sort.h)
+* [Insertion Sort](./src/algorithm_lab/algorithm/sort/shell_sort.h)

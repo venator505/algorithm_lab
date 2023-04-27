@@ -5,6 +5,7 @@
 
 #include "algorithm_lab/algorithm/sort/insertion_sort.h"
 #include "algorithm_lab/algorithm/sort/quick_sort.h"
+#include "algorithm_lab/algorithm/sort/shell_sort.h"
 #include "gtest/gtest.h"
 
 static const std::size_t kBigArrSize = 1e5;
@@ -75,6 +76,11 @@ TEST(quick_sort_stl, BigArr)
 TEST(quick_sort_stl, SortedArr)
 {
     SortTester::instance().assert_sortedarr_sorted(ybt::quick_sort_stl<int>);
+}
+
+TEST(shell_sort, BigArr)
+{
+    SortTester::instance().assert_bigarr_sorted(ybt::shell_sort<int>);
 }
 
 TEST(stl_sort, BigArr)
