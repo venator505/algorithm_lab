@@ -1,10 +1,11 @@
 #pragma once
 
+#include <cstddef>
 #include <vector>
 
 namespace ybt {
 template <typename T>
-void insertion_sort_impl(std::vector<T>& vec, int p, int q)
+void insertion_sort_impl(std::vector<T>& vec, std::size_t p, std::size_t q)
 {
     for (std::size_t i = p + 1; i <= q; ++i)
     {
