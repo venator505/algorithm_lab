@@ -6,6 +6,7 @@
 #include "algorithm_lab/algorithm/sort/insertion_sort.h"
 #include "algorithm_lab/algorithm/sort/quick_sort.h"
 #include "algorithm_lab/algorithm/sort/shell_sort.h"
+#include "algorithm_lab/algorithm/sort/counter_sort.h"
 #include "gtest/gtest.h"
 
 static const std::size_t kBigArrSize = 1e5;
@@ -41,6 +42,7 @@ public:
 private:
     std::vector<int> big_vec;
     std::vector<int> sorted_vec;
+    std::vector<int> range_vec;
     SortTester()
     {
         for (size_t i = 0; i < kBigArrSize; ++i) big_vec.push_back(rand());
