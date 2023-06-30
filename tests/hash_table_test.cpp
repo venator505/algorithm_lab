@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <exception>
 #include <vector>
 #include "algorithm_lab/structure/hash_table.h"
 #include "gtest/gtest.h"
@@ -23,4 +24,5 @@ TEST(HashTable, remove)
     ASSERT_EQ(hashtable[114], 514);
     ASSERT_EQ(hashtable[985], 211);
     hashtable.remove(114);
+    ASSERT_THROW(hashtable[114], yyds::KeyNotExistException);
 }
